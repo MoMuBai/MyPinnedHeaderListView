@@ -9,6 +9,9 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.util.List;
+import java.util.Map;
+
 /**
  * //////////////////////////////////////////////////////////////////////////////
  * //
@@ -34,18 +37,18 @@ import android.widget.Toast;
 public class TestSectionedAdapter extends SectionedBaseAdapter {
 
         private Context mContext;
-        private String[] hotCityStr;
-        private String[][] cityStr;
+        private List<String> hotCityList;
+        private Map<Integer, List<String>> map;
 
-        public TestSectionedAdapter(Context context, String[] hotCityStr, String[][] cityStr) {
+        public TestSectionedAdapter(Context context, List<String> hotCityList, Map<Integer, List<String>> map) {
                 this.mContext = context;
-                this.hotCityStr = hotCityStr;
-                this.cityStr = cityStr;
+                this.hotCityList = hotCityList;
+                this.map = map;
         }
 
         @Override
         public Object getItem(int section, int position) {
-                return cityStr[section][position];
+                return map.get(section).get(position);
         }
 
         @Override
@@ -55,12 +58,12 @@ public class TestSectionedAdapter extends SectionedBaseAdapter {
 
         @Override
         public int getSectionCount() {
-                return hotCityStr.length;
+                return hotCityList.size();
         }
 
         @Override
         public int getCountForSection(int section) {
-                return cityStr[section].length;
+                return map.get(section).size();
         }
 
         @Override
@@ -72,11 +75,11 @@ public class TestSectionedAdapter extends SectionedBaseAdapter {
                 } else {
                         layout = (LinearLayout) convertView;
                 }
-                ((TextView) layout.findViewById(R.id.textItem)).setText(cityStr[section][position]);
+                ((TextView) layout.findViewById(R.id.textItem)).setText(map.get(section).get(position));
                 layout.setOnClickListener(new OnClickListener() {
                         @Override
                         public void onClick(View arg0) {
-                                Toast.makeText(mContext, cityStr[section][position], Toast.LENGTH_SHORT).show();
+                                Toast.makeText(mContext, map.get(section).get(position), Toast.LENGTH_SHORT).show();
                         }
                 });
                 return layout;
@@ -92,7 +95,7 @@ public class TestSectionedAdapter extends SectionedBaseAdapter {
                         layout = (LinearLayout) convertView;
                 }
                 layout.setClickable(false);
-                ((TextView) layout.findViewById(R.id.textItem)).setText(hotCityStr[section]);
+                ((TextView) layout.findViewById(R.id.textItem)).setText(hotCityList.get(section));
                 return layout;
         }
 

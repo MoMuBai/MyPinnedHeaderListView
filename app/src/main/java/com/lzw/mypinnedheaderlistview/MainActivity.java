@@ -8,6 +8,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.TextView;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 /**
  * //////////////////////////////////////////////////////////////////////////////
  * //
@@ -46,6 +51,8 @@ public class MainActivity extends AppCompatActivity {
                 }
         };
         private TextView tvSearch;
+        private Map<Integer, List<String>> map;
+        private List<String> list, hotCityList;
         private String[] selectCityStr = new String[]{"#", "热门", "A", "B", "C", "D", "F", "H", "J", "K", "L", "G"};
         private String[] hotCityStr = new String[]{"热门城市", "A", "B", "C", "D", "F", "H", "J", "K", "L", "G"};
         private String[][] cityStr = new String[][]{{"北京", "上海", "杭州", "广州", "深圳", "厦门"},
@@ -69,11 +76,24 @@ public class MainActivity extends AppCompatActivity {
                 indexBar = (IndexBar) findViewById(R.id.indexBar);
                 View view = LayoutInflater.from(this).inflate(R.layout.head_view, null);
                 pinnedHeaderListView.addHeaderView(view);
+                map = new HashMap<>();
+                list = new ArrayList<>();
+                hotCityList = new ArrayList<>();
         }
 
         private void initData() {
+                for (int i = 0; i < cityStr.length; i++) {
+                        list.clear();
+                        for (int j = 0; j < cityStr[i].length; j++) {
+                                list.add(cityStr[i][j]);
+                        }
+                        map.put(i, list);
+                }
+                for (int i = 0; i < hotCityStr.length; i++) {
+                        hotCityList.add(hotCityStr[i]);
+                }
                 indexBar.setWords(selectCityStr);
-                mAdapter = new TestSectionedAdapter(this, hotCityStr, cityStr);
+                mAdapter = new TestSectionedAdapter(this, hotCityList, map);
                 pinnedHeaderListView.setAdapter(mAdapter);
                 indexBar.setOnIndexBarChangeListener(new IndexBar.OnIndexBarChangeListener() {
                         @Override
@@ -89,7 +109,7 @@ public class MainActivity extends AppCompatActivity {
                                                 for (int j = 0; j < index; j++) {
                                                         rightSection += mAdapter.getCountForSection(j) + 1;
                                                 }
-                                                pinnedHeaderListView.setSelection(rightSection - cityStr[i].length);
+                                                pinnedHeaderListView.setSelection(rightSection - map.get(i).size());
                                         }
                                         tvSearch.setVisibility(View.VISIBLE);
                                         tvSearch.setText(word);
