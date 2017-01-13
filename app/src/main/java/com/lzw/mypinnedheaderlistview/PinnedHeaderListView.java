@@ -24,7 +24,7 @@ import android.widget.ListView;
  * //      ┃　　　　　　 ┃
  * //      ┗━┓　　　┏━━━┛               @Date  2017/1/13
  * //        ┃　　　┃   神兽保佑
- * //        ┃　　　┃   代码无BUG！      @Desc
+ * //        ┃　　　┃   代码无BUG！      @Desc  带头部效果的ListView
  * //        ┃　　　┗━━━━━━━━━┓
  * //        ┃　　　　　　　    ┣━━━┛
  * //        ┃　　　　         ┏┛
