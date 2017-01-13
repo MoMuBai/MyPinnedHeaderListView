@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:orientation="horizontal">
+
+    <com.lzw.mypinnedheaderlistview.PinnedHeaderListView
+        android:id="@+id/pinnedListView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="9"
+        android:background="@android:color/white"/>
+
+    <com.lzw.mypinnedheaderlistview.IndexBar
+        android:id="@+id/indexBar"
+        android:layout_width="30dp"
+        android:layout_height="match_parent"
+        android:layout_alignParentRight="true"
+        android:layout_marginBottom="80dp"
+        android:layout_marginTop="80dp"/>
+
+    <TextView
+        android:id="@+id/tv_search"
+        android:layout_width="70dp"
+        android:layout_height="70dp"
+        android:layout_centerInParent="true"
+        android:background="@android:color/darker_gray"
+        android:gravity="center"
+        android:textSize="25sp"
+        android:visibility="gone"/>
+
+</RelativeLayout>
