@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.TextView;
@@ -76,21 +77,22 @@ public class MainActivity extends AppCompatActivity {
                 indexBar = (IndexBar) findViewById(R.id.indexBar);
                 View view = LayoutInflater.from(this).inflate(R.layout.head_view, null);
                 pinnedHeaderListView.addHeaderView(view);
+
                 map = new HashMap<>();
                 list = new ArrayList<>();
                 hotCityList = new ArrayList<>();
         }
 
         private void initData() {
-                for (int i = 0; i < cityStr.length; i++) {
-                        list.clear();
+                for (int i = 0; i < hotCityStr.length; i++) {
+                        hotCityList.add(hotCityStr[i]);
+                }
+                for (int i = 0; i < hotCityList.size(); i++) {
+                        list = new ArrayList<>();
                         for (int j = 0; j < cityStr[i].length; j++) {
                                 list.add(cityStr[i][j]);
                         }
                         map.put(i, list);
-                }
-                for (int i = 0; i < hotCityStr.length; i++) {
-                        hotCityList.add(hotCityStr[i]);
                 }
                 indexBar.setWords(selectCityStr);
                 mAdapter = new TestSectionedAdapter(this, hotCityList, map);
